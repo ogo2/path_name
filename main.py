@@ -46,7 +46,7 @@ if __name__ == '__main__':
         # Получаем открытые окна Проводника
         open_dirs = get_open_directories()
         # Сохраняем в файл
-        save_directories_to_file(open_dirs, r'C:\Users\adm\Desktop\python_program\path_name\open_directories_with_full_path.txt')
+        save_directories_to_file(open_dirs, r'C:\путь к папке с скриптом\path_name\open_directories_with_full_path.txt')
 
         print(f"Список открытых папок сохранён в 'open_directories_with_full_path.txt'")
     else:
