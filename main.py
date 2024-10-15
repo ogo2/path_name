@@ -38,19 +38,23 @@ def save_directories_to_file(open_dirs, file_path):
         for directory in open_dirs:
             f.write(f"{directory}\n")
 
-if __name__ == '__main__':
-    # Получаем процессы Проводника (explorer.exe)
-    explorer_processes = [proc for proc in psutil.process_iter(['name', 'status']) if is_explorer_process(proc)]
+while True:
+    try:
+        # Основной блок кода
+        explorer_processes = [proc for proc in psutil.process_iter(['name', 'status']) if is_explorer_process(proc)]
 
-    if explorer_processes:
-        # Получаем открытые окна Проводника
-        open_dirs = get_open_directories()
-        # Сохраняем в файл
-        save_directories_to_file(open_dirs, r'C:\путь к папке с скриптом\path_name\open_directories_with_full_path.txt')
+        if explorer_processes:
+            # Получаем открытые окна Проводника
+            open_dirs = get_open_directories()
+            # Сохраняем в файл
+            save_directories_to_file(open_dirs, r'C:\Users\adm\Desktop\python_program\path_name\open_directories_with_full_path.txt')
 
-        print(f"Список открытых папок сохранён в 'open_directories_with_full_path.txt'")
-    else:
+            print(f"Список открытых папок обновлён и сохранён в 'open_directories_with_full_path.txt'")
+        else:
+            print("Нет активных процессов Проводника.")
 
-        print("Нет активных процессов Проводника.")
-        
-    os.system("shutdown /r /t 0")
+    except Exception as e:
+        print(f"Произошла ошибка: {e}. Перезапуск через 5 секунд...")
+
+    # Задержка перед следующим обновлением списка папок (30 секунд)
+    time.sleep(30)
