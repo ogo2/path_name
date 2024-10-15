@@ -18,5 +18,5 @@ def open_directories_from_file(file_path):
                 print(f"Папка не найдена: {folder_path}")
 
 if __name__ == "__main__":
-    file_path = r'C:\Users\adm\Desktop\python_program\path_name\open_directories_with_full_path.txt'
+    file_path = r'C:\путь к папке с скриптом\path_name\open_directories_with_full_path.txt'
     open_directories_from_file(file_path)
