@@ -2,6 +2,14 @@ import psutil
 import win32com.client
 import os
 import time
+import logging
+
+# Настройка логирования
+logging.basicConfig(
+    filename=r'log\script_log.log',  # Путь к лог-файлу
+    level=logging.INFO,  # Уровень логирования (INFO)
+    format='%(asctime)s - %(levelname)s - %(message)s',  # Формат записи
+)
 
 def is_explorer_process(proc):
     """Проверяем, является ли процесс проводником Windows (explorer.exe)"""
@@ -15,7 +23,6 @@ def is_explorer_process(proc):
 def get_open_directories():
     """Получаем список открытых директорий (окон проводника)"""
     open_dirs = []
-
     shell = win32com.client.Dispatch("Shell.Application")
     windows = shell.Windows()
 
@@ -38,23 +45,40 @@ def save_directories_to_file(open_dirs, file_path):
         for directory in open_dirs:
             f.write(f"{directory}\n")
 
+# Переменные для отслеживания времени
+last_30min = time.time()
+last_2hours = time.time()
+
 while True:
     try:
-        # Основной блок кода
+        # Получаем процессы Проводника
         explorer_processes = [proc for proc in psutil.process_iter(['name', 'status']) if is_explorer_process(proc)]
 
         if explorer_processes:
             # Получаем открытые окна Проводника
             open_dirs = get_open_directories()
-            # Сохраняем в файл
-            save_directories_to_file(open_dirs, r'C:\Users\adm\Desktop\python_program\path_name\open_directories_with_full_path.txt')
 
-            print(f"Список открытых папок обновлён и сохранён в 'open_directories_with_full_path.txt'")
+            # Сохраняем пути каждые 30 секунд
+            save_directories_to_file(open_dirs, r'interval\interval_30sec\open_directories_with_full_path.txt')
+            logging.info("Список открытых папок сохранён в 'interval_30sec'")
+
+            # Сохраняем каждые 30 минут
+            if time.time() - last_30min >= 30 * 60:
+                save_directories_to_file(open_dirs, r'interval\interval_30min\open_directories_with_full_path.txt')
+                logging.info("Список открытых папок сохранён в 'interval_30min'")
+                last_30min = time.time()
+
+            # Сохраняем каждые 2 часа
+            if time.time() - last_2hours >= 2 * 60 * 60:
+                save_directories_to_file(open_dirs, r'interval\interval_2hours\open_directories_with_full_path.txt')
+                logging.info("Список открытых папок сохранён в 'interval_2hours'")
+                last_2hours = time.time()
+
         else:
-            print("Нет активных процессов Проводника.")
+            logging.info("Нет активных процессов Проводника.")
 
     except Exception as e:
-        print(f"Произошла ошибка: {e}. Перезапуск через 5 секунд...")
+        logging.error(f"Произошла ошибка: {e}. Перезапуск через 5 секунд...")
 
     # Задержка перед следующим обновлением списка папок (30 секунд)
     time.sleep(30)
