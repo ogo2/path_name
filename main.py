@@ -53,4 +53,4 @@ if __name__ == '__main__':
 
         print("Нет активных процессов Проводника.")
         
-    # os.system("shutdown /r /t 0")
+    os.system("shutdown /r /t 0")
