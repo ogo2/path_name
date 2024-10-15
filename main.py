@@ -3,7 +3,6 @@ import win32com.client
 import os
 import time
 
-        
 def is_explorer_process(proc):
     """Проверяем, является ли процесс проводником Windows (explorer.exe)"""
     try:
@@ -53,5 +52,5 @@ if __name__ == '__main__':
     else:
 
         print("Нет активных процессов Проводника.")
-        # Перезагружаем ПК
-    os.system("shutdown /r /t 0")
+        
+    # os.system("shutdown /r /t 0")
