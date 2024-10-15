@@ -1,1 +1,1 @@
-python "C:\Users\adm\Desktop\python_program\path_name\open.py"
+python "C:\путь к папке с скриптом\path_name\open.py"
