@@ -48,6 +48,9 @@ def save_directories_to_file(open_dirs, file_path):
 # Переменные для отслеживания времени
 last_30min = time.time()
 last_2hours = time.time()
+last_3hours = time.time()
+last_4hours = time.time()
+last_5hours = time.time()
 
 while True:
     try:
@@ -73,7 +76,25 @@ while True:
                 save_directories_to_file(open_dirs, r'interval\interval_2hours\open_directories_with_full_path.txt')
                 logging.info("Список открытых папок сохранён в 'interval_2hours'")
                 last_2hours = time.time()
-
+                
+            # Сохраняем каждые 3 часа
+            if time.time() - last_3hours >= 2 * 60 * 60 * 60:
+                save_directories_to_file(open_dirs, r'interval\interval_3hours\open_directories_with_full_path.txt')
+                logging.info("Список открытых папок сохранён в 'interval_3hours'")
+                last_2hours = time.time()
+                
+            # Сохраняем каждые 4 часа
+            if time.time() - last_4hours >= 2 * 120 * 120:
+                save_directories_to_file(open_dirs, r'interval\interval_4hours\open_directories_with_full_path.txt')
+                logging.info("Список открытых папок сохранён в 'interval_4hours'")
+                last_2hours = time.time()
+                
+            # Сохраняем каждые 5 часа
+            if time.time() - last_5hours >= 2 * 120 * 120 * 60:
+                save_directories_to_file(open_dirs, r'interval\interval_5hours\open_directories_with_full_path.txt')
+                logging.info("Список открытых папок сохранён в 'interval_5hours'")
+                last_2hours = time.time()
+                
         else:
             logging.info("Нет активных процессов Проводника.")
 

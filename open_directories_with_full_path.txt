@@ -1,5 +1,0 @@
-Список открытых папок (полный путь):
-C:\Users\adm\Music
-C:\Users\adm\Desktop\python_program\path_name
-C:\Users\adm\Documents
-C:\Users\adm\Videos\AnyDesk

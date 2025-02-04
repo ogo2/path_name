@@ -1,4 +1,2 @@
 Список открытых папок (полный путь):
-C:\Users\adm\Desktop\python_program
-C:\Users\adm\Desktop\python_program\path_name\log
-\\192.168.0.22\disk1\чаусов
+
