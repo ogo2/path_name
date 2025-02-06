@@ -25,12 +25,10 @@ def get_open_directories():
     open_dirs = []
     shell = win32com.client.Dispatch("Shell.Application")
     windows = shell.Windows()
-
     for window in windows:
         if window.Name == "Проводник":
             folder = window.Document.Folder.Self
             open_dirs.append(folder.Path)
-
     return open_dirs
 
 def save_directories_to_file(open_dirs, file_path):
@@ -56,21 +54,20 @@ while True:
     try:
         # Получаем процессы Проводника
         explorer_processes = [proc for proc in psutil.process_iter(['name', 'status']) if is_explorer_process(proc)]
-
         if explorer_processes:
             # Получаем открытые окна Проводника
             open_dirs = get_open_directories()
-
+            
             # Сохраняем пути каждые 30 секунд
             save_directories_to_file(open_dirs, r'interval\interval_30sec\open_directories_with_full_path.txt')
             logging.info("Список открытых папок сохранён в 'interval_30sec'")
-
+            
             # Сохраняем каждые 30 минут
             if time.time() - last_30min >= 30 * 60:
                 save_directories_to_file(open_dirs, r'interval\interval_30min\open_directories_with_full_path.txt')
                 logging.info("Список открытых папок сохранён в 'interval_30min'")
                 last_30min = time.time()
-
+            
             # Сохраняем каждые 2 часа
             if time.time() - last_2hours >= 2 * 60 * 60:
                 save_directories_to_file(open_dirs, r'interval\interval_2hours\open_directories_with_full_path.txt')
@@ -78,28 +75,27 @@ while True:
                 last_2hours = time.time()
                 
             # Сохраняем каждые 3 часа
-            if time.time() - last_3hours >= 2 * 60 * 60 * 60:
+            if time.time() - last_3hours >= 3 * 60 * 60:
                 save_directories_to_file(open_dirs, r'interval\interval_3hours\open_directories_with_full_path.txt')
                 logging.info("Список открытых папок сохранён в 'interval_3hours'")
-                last_2hours = time.time()
+                last_3hours = time.time()
                 
             # Сохраняем каждые 4 часа
-            if time.time() - last_4hours >= 2 * 120 * 120:
+            if time.time() - last_4hours >= 4 * 60 * 60:
                 save_directories_to_file(open_dirs, r'interval\interval_4hours\open_directories_with_full_path.txt')
                 logging.info("Список открытых папок сохранён в 'interval_4hours'")
-                last_2hours = time.time()
+                last_4hours = time.time()
                 
-            # Сохраняем каждые 5 часа
-            if time.time() - last_5hours >= 2 * 120 * 120 * 60:
+            # Сохраняем каждые 5 часов
+            if time.time() - last_5hours >= 5 * 60 * 60:
                 save_directories_to_file(open_dirs, r'interval\interval_5hours\open_directories_with_full_path.txt')
                 logging.info("Список открытых папок сохранён в 'interval_5hours'")
-                last_2hours = time.time()
+                last_5hours = time.time()
                 
         else:
             logging.info("Нет активных процессов Проводника.")
-
     except Exception as e:
         logging.error(f"Произошла ошибка: {e}. Перезапуск через 5 секунд...")
-
+    
     # Задержка перед следующим обновлением списка папок (30 секунд)
     time.sleep(30)
