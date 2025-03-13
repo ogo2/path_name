@@ -1,2 +1,3 @@
 Список открытых папок (полный путь):
-
+C:\Users\adm\Desktop\bybit\trading_bot
+C:\Users\adm\Desktop\python_program\path_name

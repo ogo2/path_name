@@ -9,7 +9,16 @@ def get_file_path(interval):
         "2 часа": 7200,
         "3 часа": 10800,
         "4 часа": 14400,
-        "5 часов": 18000
+        "5 часов": 18000,
+        "10 часов": 36000,
+        "12 часов": 43200,
+        "15 часов": 54000,
+        "17 часов": 61200,
+        "19 часов": 68400,
+        "21 часов": 75600,
+        "24 часа": 86400,
+        "48 часов": 172800,
+        "96 часов": 345600
     }
     seconds = interval_map.get(interval)
     if seconds == 30:
@@ -24,6 +33,24 @@ def get_file_path(interval):
         return r'interval\interval_4hours\open_directories_with_full_path.txt'
     elif seconds == 18000:
         return r'interval\interval_5hours\open_directories_with_full_path.txt'
+    elif seconds == 36000:
+        return r'interval\interval_10hours\open_directories_with_full_path.txt'
+    elif seconds == 43200:
+        return r'interval\interval_12hours\open_directories_with_full_path.txt'
+    elif seconds == 54000:
+        return r'interval\interval_15hours\open_directories_with_full_path.txt'
+    elif seconds == 61200:
+        return r'interval\interval_17hours\open_directories_with_full_path.txt'
+    elif seconds == 68400:
+        return r'interval\interval_19hours\open_directories_with_full_path.txt'
+    elif seconds == 75600:
+        return r'interval\interval_21hours\open_directories_with_full_path.txt'
+    elif seconds == 86400:
+        return r'interval\interval_24hours\open_directories_with_full_path.txt'
+    elif seconds == 172800:
+        return r'interval\interval_48hours\open_directories_with_full_path.txt'
+    elif seconds == 345600:
+        return r'interval\interval_96hours\open_directories_with_full_path.txt'
     else:
         return None
 
@@ -86,7 +113,12 @@ def main(page: ft.Page):
     page.window_height = 500  # Увеличил высоту для списка папок
     page.window_resizable = False
 
-    intervals = ["30 секунд", "30 минут", "2 часа", "3 часа", "4 часа", "5 часов"]
+    intervals = [
+        "30 секунд", "30 минут", "2 часа", "3 часа", "4 часа", "5 часов",
+        "10 часов", "12 часов", "15 часов", "17 часов", "19 часов",
+        "21 часов", "24 часа", "48 часов", "96 часов"
+    ]
+    
     dropdown = ft.Dropdown(
         label="Выберите интервал открытия папок",
         options=[ft.dropdown.Option(i) for i in intervals],

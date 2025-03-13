@@ -50,6 +50,16 @@ last_3hours = time.time()
 last_4hours = time.time()
 last_5hours = time.time()
 
+# Новые переменные для отслеживания времени
+last_10hours = time.time()
+last_12hours = time.time()
+last_15hours = time.time()
+last_17hours = time.time()
+last_19hours = time.time()
+last_21hours = time.time()
+last_24hours = time.time()
+last_48hours = time.time()
+last_96hours = time.time()
 while True:
     try:
         # Получаем процессы Проводника
@@ -92,6 +102,57 @@ while True:
                 logging.info("Список открытых папок сохранён в 'interval_5hours'")
                 last_5hours = time.time()
                 
+            # Сохраняем каждые 10 часов
+            if time.time() - last_10hours >= 10 * 60 * 60:
+                save_directories_to_file(open_dirs, r'interval\interval_10hours\open_directories_with_full_path.txt')
+                logging.info("Список открытых папок сохранён в 'interval_10hours'")
+                last_10hours = time.time()
+                
+            # Сохраняем каждые 12 часов
+            if time.time() - last_12hours >= 12 * 60 * 60:
+                save_directories_to_file(open_dirs, r'interval\interval_12hours\open_directories_with_full_path.txt')
+                logging.info("Список открытых папок сохранён в 'interval_12hours'")
+                last_12hours = time.time()
+                
+            # Сохраняем каждые 15 часов
+            if time.time() - last_15hours >= 15 * 60 * 60:
+                save_directories_to_file(open_dirs, r'interval\interval_15hours\open_directories_with_full_path.txt')
+                logging.info("Список открытых папок сохранён в 'interval_15hours'")
+                last_15hours = time.time()
+                
+            # Сохраняем каждые 17 часов
+            if time.time() - last_17hours >= 17 * 60 * 60:
+                save_directories_to_file(open_dirs, r'interval\interval_17hours\open_directories_with_full_path.txt')
+                logging.info("Список открытых папок сохранён в 'interval_17hours'")
+                last_17hours = time.time()
+                
+            # Сохраняем каждые 19 часов
+            if time.time() - last_19hours >= 19 * 60 * 60:
+                save_directories_to_file(open_dirs, r'interval\interval_19hours\open_directories_with_full_path.txt')
+                logging.info("Список открытых папок сохранён в 'interval_19hours'")
+                last_19hours = time.time()
+                
+            # Сохраняем каждые 21 часов
+            if time.time() - last_21hours >= 21 * 60 * 60:
+                save_directories_to_file(open_dirs, r'interval\interval_21hours\open_directories_with_full_path.txt')
+                logging.info("Список открытых папок сохранён в 'interval_21hours'")
+                last_21hours = time.time()
+                
+            # Сохраняем каждые 24 часа
+            if time.time() - last_24hours >= 24 * 60 * 60:
+                save_directories_to_file(open_dirs, r'interval\interval_24hours\open_directories_with_full_path.txt')
+                logging.info("Список открытых папок сохранён в 'interval_24hours'")
+                last_24hours = time.time()
+              # Сохраняем каждые 48 часов
+            if time.time() - last_48hours >= 48 * 60 * 60:
+                save_directories_to_file(open_dirs, r'interval\interval_48hours\open_directories_with_full_path.txt')
+                logging.info("Список открытых папок сохранён в 'interval_48hours'")
+                last_48hours = time.time()
+            # Сохраняем каждые 96 часов
+            if time.time() - last_96hours >= 96 * 60 * 60:
+                save_directories_to_file(open_dirs, r'interval\interval_96hours\open_directories_with_full_path.txt')
+                logging.info("Список открытых папок сохранён в 'interval_96hours'")
+                last_96hours = time.time()
         else:
             logging.info("Нет активных процессов Проводника.")
     except Exception as e:
